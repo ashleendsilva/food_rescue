@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Food Save & Share</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fdfdfd;
+      color: #222;
+    }
+    header {
+      background: #1e3932;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: rgb(24, 17, 17);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header h1 { margin: 0; font-size: 22px; }
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav a:hover { color: #f4b400; }
+
+    section {
+      padding: 60px 20px;
+      display: none;
+    }
+    section.active { display: block; }
+
+    /* Hero */
+    .hero {
+      height: 90vh;
+      text-align: center;
+      color: white;
+      background: url('https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1200&q=80') no-repeat center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+    .hero h1 { font-size: 50px; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); }
+    .hero p { font-size: 20px; max-width: 600px; margin: 20px auto; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-top: 40px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      width: 280px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-5px); }
+    .card img {
+      width: 100%;
+      height: 160px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+    .card h3 { margin-top: 10px; color: #1e3932; }
+
+    /* Food gallery */
+    .food-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    .food-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .food-card img {
+      width: 100%;
+      height: 180px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    /* Map */
+    #map {
+      width: 100%;
+      height: 400px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Forms */
+    .signup-form {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+    .signup-form input, .signup-form button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+    .signup-form button {
+      background: #f4b400;
+      color: #1e3932;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .signup-form button:hover { background: #e19e00; }
+    .google-btn {
+      background: #db4437 !important;
+      color: white !important;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🍲 Food Save & Share</h1>
+  <nav>
+    <a href="#" onclick="showSection('home')">Home</a>
+    <a href="#" onclick="showSection('ngo')">NGO</a>
+    <a href="#" onclick="showSection('restaurant')">Restaurant</a>
+    <a href="#" onclick="showSection('common')">Common People</a>
+    <a href="#" onclick="showSection('map')">Map</a>
+    <a href="#" onclick="showSection('food')">Food</a>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section id="home" class="active hero">
+  <h1>Save Food, Serve Humanity</h1>
+  <p>Together, we can reduce food waste and help feed millions of hungry people.</p>
+  <div class="cards">
+    <div class="card" onclick="showSection('ngo')">
+      <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=600&q=80" alt="NGO Volunteers">
+      <h3>👩‍🤝‍👩 NGO Sign Up</h3>
+      <p>Join hands with restaurants & distribute food to those in need.</p>
+    </div>
+    <div class="card" onclick="showSection('restaurant')">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="Restaurant Kitchen">
+      <h3>🍴 Restaurant Sign Up</h3>
+      <p>List your extra food & reduce waste responsibly.</p>
+    </div>
+    <div class="card" onclick="showSection('common')">
+      <img src="https://images.unsplash.com/photo-1532634896-26909d0d4b6a?auto=format&fit=crop&w=600&q=80" alt="Volunteers">
+      <h3>🙋 Common People Sign Up</h3>
+      <p>Be a volunteer & help in food pickup and delivery.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NGO Sign Up -->
+<section id="ngo">
+  <h2 style="text-align:center;">NGO Sign Up</h2>
+  <form class="signup-form">
+    <input type="text" placeholder="NGO Name" required>
+    <input type="email" placeholder="Email" required>
+    <input type="text" placeholder="Phone" required>
+    <input type="password" placeholder="Password" required>
+    <button type="submit">Sign Up</button>
+    <button type="button" class="google-btn">Sign Up with Google</button>
+  </form>
+</section>
+
+<!-- Restaurant Sign Up -->
+<section id="restaurant">
+  <h2 style="text-align:center;">Restaurant Sign Up</h2>
+  <form class="signup-form">
+    <input type="text" placeholder="Restaurant Name" required>
+    <input type="email" placeholder="Email" required>
+    <input type="text" placeholder="Phone" required>
+    <input type="password" placeholder="Password" required>
+    <button type="submit">Sign Up</button>
+    <button type="button" class="google-btn">Sign Up with Google</button>
+  </form>
+</section>
+
+<!-- Common People Sign Up -->
+<section id="common">
+  <h2 style="text-align:center;">Common People Sign Up</h2>
+  <form class="signup-form">
+    <input type="text" placeholder="Full Name" required>
+    <input type="email" placeholder="Email" required>
+    <input type="text" placeholder="Phone" required>
+    <input type="password" placeholder="Password" required>
+    <button type="submit">Sign Up</button>
+    <button type="button" class="google-btn">Sign Up with Google</button>
+  </form>
+</section>
+
+<!-- Map -->
+<section id="map-section">
+  <h2 style="text-align:center;">Nearby Restaurants & Food Pickup Points</h2>
+  <div id="map"></div>
+</section>
+
+<!-- Food Details -->
+<section id="food">
+  <h2 style="text-align:center;">Available Leftover Food</h2>
+  <div class="food-gallery">
+    <div class="food-card">
+      <img src="https://images.unsplash.com/photo-1631877020033-0f24f8206dfa?auto=format&fit=crop&w=600&q=80" alt="Veg Biryani">
+      <h3>Veg Biryani</h3>
+      <p>5 Plates - Veg<br>Pickup: MG Road<br>Restaurant: Spice Hub</p>
+    </div>
+    <div class="food-card">
+      <img src="https://images.unsplash.com/photo-1631788012429-fd40863c19e3?auto=format&fit=crop&w=600&q=80" alt="Chicken Curry">
+      <h3>Chicken Curry</h3>
+      <p>3 Bowls - Non-Veg<br>Pickup: Kankanady<br>Restaurant: Food Point</p>
+    </div>
+    <div class="food-card">
+      <img src="https://images.unsplash.com/photo-1605478490761-8c6dbd6be9f8?auto=format&fit=crop&w=600&q=80" alt="Paneer Butter Masala">
+      <h3>Paneer Butter Masala</h3>
+      <p>4 Bowls - Veg<br>Pickup: Lalbagh<br>Restaurant: Curry House</p>
+    </div>
+    <div class="food-card">
+      <img src="https://images.unsplash.com/photo-1576402187878-974f6be3882a?auto=format&fit=crop&w=600&q=80" alt="Fish Fry">
+      <h3>Fish Fry</h3>
+      <p>6 Pieces - Non-Veg<br>Pickup: Hampankatta<br>Restaurant: Coastal Treat</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+    if(id === 'map') {
+      document.getElementById('map-section').classList.add('active');
+    } else {
+      document.getElementById(id).classList.add('active');
+    }
+  }
+
+  // Initialize Google Map
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: 12.9141, lng: 74.8560 }, // Example: Mangalore
+      zoom: 13
+    });
+
+    var locations = [
+      {name: "Spice Hub", lat: 12.914, lng: 74.855},
+      {name: "Food Point", lat: 12.916, lng: 74.857},
+      {name: "Curry House", lat: 12.918, lng: 74.852},
+      {name: "Coastal Treat", lat: 12.912, lng: 74.859}
+    ];
+
+    locations.forEach(loc => {
+      new google.maps.Marker({
+        position: {lat: loc.lat, lng: loc.lng},
+        map: map,
+        title: loc.name
+      });
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+
+</body>
+</html>
